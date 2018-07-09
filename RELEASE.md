@@ -1,6 +1,6 @@
 # Docker Image: CentOS 7 Ansible
 
-## Unreleased
+## 0.1.0
 
 * Initial commit. 
 
