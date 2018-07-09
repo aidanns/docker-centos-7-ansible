@@ -1,0 +1,25 @@
+sudo: 'required'
+
+services:
+  - 'docker'
+
+before_install:
+  - './.travis/main.sh'
+
+script:
+  - 'make test'
+  - 'make image'
+
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin ;
+      make push-image ;
+    fi
+
+notifications:
+  email: false
+
+env:
+  global:
+    - "DOCKER_USERNAME=aidanns"
+    - secure: "UyS5jG4iRSMcAyZ8zQ3kwq+K1CEepJuG5qWMnT9SMeHrg6vhz/ni1p4ay8gHWG/Ulc0nQL1f+U6Aw6hqZPFMQShgobZ8Y173ko3jj6lqWxreAPO0XTKWeatOdfT18Q3jvbsXi5pOlxqrPltawvJFnmpB24cHmO+taJWtT6+LYJxEHkrO802NyFAmodw4QTNRwky5RmvJ323tpN3dwd7f11A5reib+JOHrrIa1isA5pJh09UaEzlL02WF7IK7etCTl7Gubs2WdHapCl+S+SuukhxGKQTpZprJUH5Q5SLApMqmf12CqJuZVxIQewD8rC+P+If1haERP2/zHuQMw6skHSHAnmcp4C5nw1SFt42FGnkQCPNrTP+TwPQm0dA68Bd3eJZSTy25PecvoEdLpOCFVzeZ/z0tHTI0A6k01S0671jLXv1EFVnxHMLIBBG99OiUGJn07MAeHSb+mru4hYo1Cmy7Q48dZJzYcmPo88cVUDETd5fZDAxdMILaklkjjZztAGG86NDMHwXTHgct1yspbaLDKdf5zre9ZpwxoNOpdt/h7ygrNO4IwmoB1BdTQq8/Taz9NiwFyTt/7Ed1XqiuazyyRiPbpv8+v9qM8wF6zJm/IjdHYtTg8JQjey13lbXZB4iUaF0VfpPSoNSSTUjF56695hk0URqqutjUIE2I9wM="
