@@ -1,6 +1,6 @@
 # Docker Image: CentOS 7 Ansible
 
-## Unreleased
+## 0.1.1
 
 * Correct password for Travis.
 
